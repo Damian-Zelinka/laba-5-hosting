@@ -352,6 +352,11 @@ label{
     margin-bottom: -20px;
 }
 
+.selected-filter{
+    background-color: darksalmon;
+    color: white;
+}
+
 
 /* css for footer */
 

@@ -203,6 +203,9 @@ const selectedItems = {
     updateOrderSummary();
   }
 
+
+
+
 /////////////////////////////////////////
 
   function updateOrderSummary() {
@@ -266,46 +269,40 @@ function filters()
 const filterButtons = document.querySelectorAll('.filter-p');
 filterButtons.forEach(button => 
 {
-    let datasetFlag = '';
-
     button.addEventListener('click', () => 
     {
         const buttonsContainer = button.parentElement;
         const targetContainer = buttonsContainer.nextElementSibling;
         const children = targetContainer.children;
-        
-
-
-        Array.from(children).forEach(child => 
-        {
-
-            child.style.display = 'none';
-
-
-            if (datasetFlag !== button.dataset.kind)
+    
+    
+        if (button.classList.contains('selected-filter'))
             {
-                if (child.dataset.kind == button.dataset.kind) 
+                button.classList.remove('selected-filter');
+    
+                Array.from(children).forEach(child => 
                     {
                         child.style.display = 'flex';
-                    }
+                    });
             }
-            else
-            {
-                child.style.display = 'flex';
-            }
-
-
-        });
-
-        if (datasetFlag == button.dataset.kind)
-        {
-            datasetFlag = '';
-        }
+    
         else
-        {
-            datasetFlag = button.dataset.kind;
-        }
-
+            {
+            const filterButtons = document.querySelectorAll(`[data-filter="${button.dataset.filter}"]`);
+            filterButtons.forEach(button => {button.classList.remove('selected-filter')})
+    
+            Array.from(children).forEach(child => 
+                {
+                    child.style.display = 'none';
+                    if (child.dataset.kind == button.dataset.kind) 
+                        {
+                            child.style.display = 'flex';
+                        }
+                });
+        
+    
+            button.classList.add('selected-filter'); 
+            };
     });
 });
 }
